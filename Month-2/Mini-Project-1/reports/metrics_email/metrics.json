@@ -1,0 +1,83 @@
+{
+  "best_model": "svm",
+  "results": {
+    "naive_bayes": {
+      "accuracy": 0.9341772151898734,
+      "spam_precision": 0.9127906976744186,
+      "spam_recall": 0.8674033149171271,
+      "spam_f1": 0.8895184135977338,
+      "confusion_matrix": [
+        [
+          793,
+          30
+        ],
+        [
+          48,
+          314
+        ]
+      ],
+      "confusion_labels": [
+        "ham",
+        "spam"
+      ],
+      "n_test": 1185
+    },
+    "logistic_regression": {
+      "accuracy": 0.9628691983122363,
+      "spam_precision": 0.9676470588235294,
+      "spam_recall": 0.9088397790055248,
+      "spam_f1": 0.9373219373219374,
+      "confusion_matrix": [
+        [
+          812,
+          11
+        ],
+        [
+          33,
+          329
+        ]
+      ],
+      "confusion_labels": [
+        "ham",
+        "spam"
+      ],
+      "n_test": 1185
+    },
+    "svm": {
+      "accuracy": 0.9822784810126582,
+      "spam_precision": 0.9645776566757494,
+      "spam_recall": 0.9779005524861878,
+      "spam_f1": 0.9711934156378601,
+      "confusion_matrix": [
+        [
+          810,
+          13
+        ],
+        [
+          8,
+          354
+        ]
+      ],
+      "confusion_labels": [
+        "ham",
+        "spam"
+      ],
+      "n_test": 1185
+    }
+  },
+  "data_report": {
+    "source_path": "data\\raw\\email_spam_ham.csv",
+    "total_rows": 5922,
+    "missing_label": 0,
+    "missing_text": 0,
+    "unknown_label": 0,
+    "empty_text": 0,
+    "duplicates": 0,
+    "removed_rows": 0,
+    "kept_rows": 5922,
+    "label_counts": {
+      "ham": 4111,
+      "spam": 1811
+    }
+  }
+}

@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+
+# Pytest / QA
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Secrets / keys
+*.pem
+*.key
+.env.local
+
+# Local datasets (large / licensed) - keep small documented sample only if needed
+data/raw/*
+!data/raw/.gitkeep
+!data/README.md
+!data/raw/README_UCI_ORIGINAL.txt
+
+# Generated artifacts - models/ kept intentionally for deployment (small file).
+# Uncomment the next line if the model file exceeds host limits and you use
+# an alternate supply mechanism documented in README.
+# models/*.joblib
+
+# Reports/metrics/figures are generated from actual results and ARE tracked
+# for this submission (no ignore rules here).
+
+# Logs / temp
+*.log
+*.tmp
+.DS_Store
+Thumbs.db

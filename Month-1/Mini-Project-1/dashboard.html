@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Price Tracker - Visual Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-primary: #0b0e14;
+            --bg-card: rgba(21, 25, 33, 0.75);
+            --bg-card-hover: rgba(30, 35, 48, 0.85);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent-cyan: #00f2fe;
+            --accent-blue: #4facfe;
+            --green: #16c784;
+            --red: #ea3943;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 30px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 242, 254, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(79, 172, 254, 0.05) 0%, transparent 40%);
+        }
+
+        .container { max-width: 1300px; margin: 0 auto; }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo-area { display: flex; align-items: center; gap: 15px; }
+        .logo-icon {
+            width: 48px; height: 48px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; font-weight: bold; color: #000;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+        }
+
+        h1 { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
+        .subtitle { color: var(--text-muted); font-size: 14px; margin-top: 2px; }
+
+        .live-badge {
+            background: rgba(22, 199, 132, 0.15);
+            color: var(--green);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex; align-items: center; gap: 8px;
+            border: 1px solid rgba(22, 199, 132, 0.3);
+        }
+        .pulse { width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: blink 1.5s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        /* Stats Bar */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            padding: 22px;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover { transform: translateY(-3px); border-color: rgba(0, 242, 254, 0.3); }
+        .stat-label { color: var(--text-muted); font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-value { font-size: 26px; font-weight: 700; margin-top: 8px; color: var(--text-main); }
+        .stat-sub { font-size: 12px; margin-top: 6px; }
+        .positive { color: var(--green); }
+        .negative { color: var(--red); }
+
+        /* Controls */
+        .controls-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 10px 18px;
+            border-radius: 12px;
+            color: #fff;
+            outline: none;
+            width: 280px;
+            font-size: 14px;
+        }
+        .search-box:focus { border-color: var(--accent-cyan); }
+
+        .filter-buttons { display: flex; gap: 10px; }
+        .btn-filter {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 10px 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .btn-filter.active, .btn-filter:hover {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            color: #000;
+            border-color: transparent;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+        }
+
+        /* Layout Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+        @media (max-width: 1024px) { .dashboard-grid { grid-template-columns: 1fr; } }
+
+        /* Main Table */
+        .table-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 24px;
+            overflow: hidden;
+        }
+
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th { padding: 14px; font-size: 12px; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border-color); }
+        td { padding: 16px 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.04); font-size: 14px; font-weight: 500; }
+        tr:hover td { background: var(--bg-card-hover); }
+
+        .coin-info { display: flex; align-items: center; gap: 12px; }
+        .coin-icon {
+            width: 32px; height: 32px; border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; font-weight: bold; color: var(--accent-cyan);
+        }
+        .coin-name { font-weight: 600; }
+        .coin-symbol { color: var(--text-muted); font-size: 12px; margin-left: 6px; }
+
+        .badge {
+            padding: 4px 10px; border-radius: 8px; font-size: 12px; font-weight: 600; display: inline-block;
+        }
+        .badge-up { background: rgba(22, 199, 132, 0.15); color: var(--green); }
+        .badge-down { background: rgba(234, 57, 67, 0.15); color: var(--red); }
+
+        /* Chart Card */
+        .chart-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 24px;
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+
+        .chart-title { font-size: 16px; font-weight: 700; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="logo-area">
+            <div class="logo-icon">⚡</div>
+            <div>
+                <h1>Cryptocurrency Price Tracker</h1>
+                <div class="subtitle">Live Scraped Data & Market Intelligence | Selenium Automated Pipeline</div>
+            </div>
+        </div>
+        <div class="live-badge">
+            <span class="pulse"></span> LIVE SCENARIO ACTIVE
+        </div>
+    </header>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-label">Total Coins Tracked</div>
+            <div class="stat-value">10</div>
+            <div class="stat-sub positive">Top Market Cap Selection</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Top Performer</div>
+            <div class="stat-value" id="top-performer">Figure Heloc</div>
+            <div class="stat-sub positive">+1.93% (24h)</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Market Leader</div>
+            <div class="stat-value">$79,179.00</div>
+            <div class="stat-sub">Bitcoin (BTC)</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Scrape Timestamp</div>
+            <div class="stat-value" style="font-size: 18px; font-weight:600;" id="last-update">2026-09-04 20:14:55</div>
+            <div class="stat-sub positive">Logged in crypto_prices.csv</div>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls-bar">
+        <input type="text" class="search-box" id="search" placeholder="🔍 Search coin name or symbol..." onkeyup="filterCoins()">
+        <div class="filter-buttons">
+            <button class="btn-filter active" onclick="setFilter('all', this)">All Top 10</button>
+            <button class="btn-filter" onclick="setFilter('gainers', this)">Top Gainers (+%)</button>
+            <button class="btn-filter" onclick="setFilter('highval', this)">Price > $100</button>
+        </div>
+    </div>
+
+    <!-- Dashboard Grid -->
+    <div class="dashboard-grid">
+        <!-- Table -->
+        <div class="table-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Cryptocurrency</th>
+                        <th>Price</th>
+                        <th>24h Change</th>
+                        <th>Market Cap</th>
+                    </tr>
+                </thead>
+                <tbody id="crypto-table-body">
+                    <!-- Dynamic JS Rows -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Chart -->
+        <div class="chart-card">
+            <div class="chart-title">Market Capitalization Comparison</div>
+            <canvas id="marketCapChart" height="280"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+    const cryptoData = [
+        { rank: 1, name: "Bitcoin", symbol: "BTC", price: "$79,179.00", cleanPrice: 79179, change: "-0.77%", cleanChange: -0.77, mcap: "$1,590,351,290,511", rawCap: 1590 },
+        { rank: 2, name: "Ethereum", symbol: "ETH", price: "$2,446.47", cleanPrice: 2446.47, change: "-0.47%", cleanChange: -0.47, mcap: "$298,630,036,588", rawCap: 298.6 },
+        { rank: 3, name: "Tether", symbol: "USDT", price: "$0.9999", cleanPrice: 0.9999, change: "+0.01%", cleanChange: 0.01, mcap: "$183,367,766,992", rawCap: 183.3 },
+        { rank: 4, name: "BNB", symbol: "BNB", price: "$712.54", cleanPrice: 712.54, change: "-0.90%", cleanChange: -0.90, mcap: "$94,918,265,851", rawCap: 94.9 },
+        { rank: 5, name: "XRP", symbol: "XRP", price: "$1.39", cleanPrice: 1.39, change: "-1.66%", cleanChange: -1.66, mcap: "$87,571,126,846", rawCap: 87.5 },
+        { rank: 6, name: "USDC", symbol: "USDC", price: "$0.9999", cleanPrice: 0.9999, change: "-0.01%", cleanChange: -0.01, mcap: "$74,173,688,666", rawCap: 74.1 },
+        { rank: 7, name: "Solana", symbol: "SOL", price: "$100.83", cleanPrice: 100.83, change: "-1.92%", cleanChange: -1.92, mcap: "$59,058,800,365", rawCap: 59.0 },
+        { rank: 8, name: "TRON", symbol: "TRX", price: "$0.3291", cleanPrice: 0.3291, change: "-0.09%", cleanChange: -0.09, mcap: "$31,240,656,513", rawCap: 31.2 },
+        { rank: 9, name: "Figure Heloc", symbol: "FIGR_HELOC", price: "$1.03", cleanPrice: 1.03, change: "+1.93%", cleanChange: 1.93, mcap: "$22,975,596,891", rawCap: 22.9 },
+        { rank: 10, name: "Hyperliquid", symbol: "HYPE", price: "$83.98", cleanPrice: 83.98, change: "+0.52%", cleanChange: 0.52, mcap: "$18,703,016,894", rawCap: 18.7 }
+    ];
+
+    let currentFilter = 'all';
+
+    function renderTable(data) {
+        const tbody = document.getElementById('crypto-table-body');
+        tbody.innerHTML = '';
+        data.forEach(coin => {
+            const isUp = coin.cleanChange >= 0;
+            const badgeClass = isUp ? 'badge-up' : 'badge-down';
+            const row = `
+                <tr>
+                    <td style="color: var(--text-muted); font-weight: bold;">${coin.rank}</td>
+                    <td>
+                        <div class="coin-info">
+                            <div class="coin-icon">${coin.symbol.slice(0, 3)}</div>
+                            <div>
+                                <span class="coin-name">${coin.name}</span>
+                                <span class="coin-symbol">${coin.symbol}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="font-weight: 700;">${coin.price}</td>
+                    <td><span class="badge ${badgeClass}">${coin.change}</span></td>
+                    <td style="color: var(--text-muted);">${coin.mcap}</td>
+                </tr>
+            `;
+            tbody.innerHTML += row;
+        });
+    }
+
+    function setFilter(filterType, btn) {
+        document.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = filterType;
+        filterCoins();
+    }
+
+    function filterCoins() {
+        const query = document.getElementById('search').value.toLowerCase();
+        let filtered = cryptoData.filter(c => 
+            c.name.toLowerCase().includes(query) || c.symbol.toLowerCase().includes(query)
+        );
+
+        if (currentFilter === 'gainers') {
+            filtered = filtered.filter(c => c.cleanChange > 0);
+        } else if (currentFilter === 'highval') {
+            filtered = filtered.filter(c => c.cleanPrice >= 100);
+        }
+
+        renderTable(filtered);
+    }
+
+    // Initialize Table & Chart
+    renderTable(cryptoData);
+
+    const ctx = document.getElementById('marketCapChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: cryptoData.map(c => c.symbol),
+            datasets: [{
+                label: 'Market Cap ($ Billions)',
+                data: cryptoData.map(c => c.rawCap),
+                backgroundColor: 'rgba(0, 242, 254, 0.5)',
+                borderColor: '#00f2fe',
+                borderWidth: 2,
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { ticks: { color: '#94a3b8' }, grid: { display: false } },
+                y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

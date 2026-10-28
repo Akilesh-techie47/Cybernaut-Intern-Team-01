@@ -1,0 +1,21 @@
+{
+  "generator": "synthetic_ham v1 (template dev aid; NOT genuine mail)",
+  "warning": "TEMPLATE-GENERATED. Not genuine mail. Dev aid only.",
+  "seed": 7,
+  "per_category_requested": 120,
+  "rows_generated": 1200,
+  "rows_after_dedupe": 1179,
+  "per_category": {
+    "payslip": 120,
+    "order_confirmation": 120,
+    "shipping": 120,
+    "invoice": 120,
+    "purchase_order": 120,
+    "appointment": 120,
+    "meeting": 118,
+    "newsletter": 118,
+    "library": 113,
+    "payroll": 110
+  },
+  "template_fingerprint_sha1": "4f33b9de43fe"
+}

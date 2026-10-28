@@ -1,0 +1,283 @@
+.product-detail {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* ─── Page Header ─────────────────────────────────────── */
+.product-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding-bottom: 1.75rem;
+  border-bottom: 1px solid var(--border);
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.product-page-header-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.product-page-header-right {
+  flex-shrink: 0;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.75rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+  color: var(--text-secondary);
+  background: rgba(255,255,255,0.08);
+}
+
+.product-page-header h1 {
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  line-height: 1.25;
+}
+
+.product-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+}
+
+.source-badge {
+  background: rgba(99, 102, 241, 0.18);
+  color: #a5b4fc;
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  padding: 0.2rem 0.7rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.meta-sep {
+  color: var(--text-muted);
+}
+
+.overall-sentiment-badge {
+  display: inline-block;
+  padding: 0.6rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: white;
+}
+
+/* ─── Stat Row ─────────────────────────────────────── */
+.stat-cards-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.pstat-card {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, var(--surface) 100%);
+  transition: all 0.3s ease;
+}
+
+.pstat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.pstat-value {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 0.35rem;
+  letter-spacing: -0.02em;
+}
+
+.pstat-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.3rem;
+}
+
+.pstat-detail {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* ─── Charts ─────────────────────────────────────── */
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.chart-card {
+  min-height: 380px;
+}
+
+.chart-container {
+  height: 100%;
+}
+
+.chart-container.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+}
+
+.empty-message {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ─── Section Header ─────────────────────────────────────── */
+.section-header {
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-header h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* ─── Reviews ─────────────────────────────────────── */
+.reviews-section {
+  margin-top: 0.5rem;
+}
+
+/* ─── Pagination ─────────────────────────────────────── */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.page-info {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* ─── Empty State ─────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--surface);
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.empty-state h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 0.65rem;
+}
+
+.empty-state p {
+  color: var(--text-secondary);
+  margin-bottom: 1.75rem;
+  font-size: 0.95rem;
+}
+
+/* ─── Review Table styles ─────────────────────────────────────── */
+.rating-stars {
+  color: #fbbf24;
+  letter-spacing: 0.1em;
+}
+
+.sentiment-score {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.review-text-content {
+  line-height: 1.55;
+  color: var(--text-primary);
+  max-height: 4.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.filters {
+  margin-bottom: 1.5rem;
+}
+
+.filter-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  align-items: end;
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .product-page-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-row {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-cards-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-cards-row {
+    grid-template-columns: 1fr;
+  }
+}

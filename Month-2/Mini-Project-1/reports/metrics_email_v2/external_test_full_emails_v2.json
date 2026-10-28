@@ -1,0 +1,29 @@
+{
+  "dataset": "full_emails_v2",
+  "source": "C:\\Users\\ELCOT\\Downloads\\100_full_email_spam_ham_test_dataset.csv",
+  "mode": "subject_body",
+  "n_rows": 100,
+  "n_evaluated": 100,
+  "n_skipped_by_site_validation": 0,
+  "metrics": {
+    "accuracy": 0.77,
+    "spam_precision": 0.7213114754098361,
+    "spam_recall": 0.88,
+    "spam_f1": 0.7927927927927928,
+    "confusion_matrix": [
+      [
+        33,
+        17
+      ],
+      [
+        6,
+        44
+      ]
+    ],
+    "confusion_labels": [
+      "ham",
+      "spam"
+    ],
+    "n_test": 100
+  }
+}

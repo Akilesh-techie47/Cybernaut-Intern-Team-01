@@ -1,0 +1,29 @@
+{
+  "dataset": "short_messages",
+  "source": "C:\\Users\\ELCOT\\Downloads\\email_spam_classifier_100_test_messages.csv",
+  "mode": "text",
+  "n_rows": 100,
+  "n_evaluated": 100,
+  "n_skipped_by_site_validation": 0,
+  "metrics": {
+    "accuracy": 0.64,
+    "spam_precision": 1.0,
+    "spam_recall": 0.28,
+    "spam_f1": 0.4375,
+    "confusion_matrix": [
+      [
+        50,
+        0
+      ],
+      [
+        36,
+        14
+      ]
+    ],
+    "confusion_labels": [
+      "ham",
+      "spam"
+    ],
+    "n_test": 100
+  }
+}

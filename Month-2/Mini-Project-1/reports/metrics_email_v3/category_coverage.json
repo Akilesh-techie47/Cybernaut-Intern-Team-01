@@ -1,0 +1,50 @@
+{
+  "pool": "data/raw/email_train_v2_clean.csv",
+  "pool_rows": 7101,
+  "modern_ham_rows": 0,
+  "manifest": "reports/synthetic_ham_manifest.json",
+  "ham_by_category_origin": {
+    "personal": {
+      "genuine": 197,
+      "synthetic": 0,
+      "total": 197
+    },
+    "educational": {
+      "genuine": 243,
+      "synthetic": 0,
+      "total": 243
+    },
+    "conversational": {
+      "genuine": 4,
+      "synthetic": 0,
+      "total": 4
+    },
+    "transactional": {
+      "genuine": 600,
+      "synthetic": 710,
+      "total": 1310
+    },
+    "business": {
+      "genuine": 227,
+      "synthetic": 195,
+      "total": 422
+    },
+    "newsletter": {
+      "genuine": 196,
+      "synthetic": 0,
+      "total": 196
+    },
+    "notification": {
+      "genuine": 370,
+      "synthetic": 274,
+      "total": 644
+    },
+    "uncategorized": {
+      "genuine": 2274,
+      "synthetic": 0,
+      "total": 2274
+    }
+  },
+  "ham_total": 5290,
+  "spam_total": 1811
+}

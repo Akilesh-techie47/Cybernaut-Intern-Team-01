@@ -1,0 +1,51 @@
+row,subject,category
+50,Agenda for tomorrow's project meeting,business
+51,Updated internal assessment timetable,educational
+52,Reminder: books due next Monday,notification
+53,Your September payslip is available,transactional
+54,Your order has shipped,transactional
+55,Appointment confirmation for Tuesday,business
+56,Code review requested for the login fix,business
+57,Dinner at home on Sunday,personal
+58,Your monthly electricity bill is ready,notification
+59,Registration confirmed for the Python workshop,notification
+60,Your monthly statement is available,transactional
+61,Revised presentation attached,uncategorized
+62,Your train departure time has changed,notification
+63,We received your support request,business
+64,Meeting link for the capstone review,business
+65,Scheduled maintenance in your area,notification
+66,Interview scheduled for Thursday,business
+67,Invoice for office stationery,transactional
+68,Are you free for a game this weekend?,personal
+69,Your course completion certificate is ready,notification
+70,Please submit your travel expense report,transactional
+71,Water supply maintenance on Friday,notification
+72,Code freeze begins tomorrow afternoon,uncategorized
+73,Your test results are ready to discuss,business
+74,We received your returned item,transactional
+75,Feedback on your database assignment,educational
+76,Reminder for Saturday's campus event,notification
+77,Monthly data usage summary,uncategorized
+78,I collected your package from reception,uncategorized
+79,Database backup completed successfully,business
+80,Hotel booking confirmation,personal
+81,Leave request approved,business
+82,Approved software update available,business
+83,Notes from today's lecture,educational
+84,Update on your refund request,transactional
+85,Monthly coding club meeting,business
+86,Please review your payroll profile in the employee portal,transactional
+87,Photos from our weekend trip,personal
+88,Warranty registration confirmation,transactional
+89,Reminder: lab record submission deadline,notification
+90,Your conference registration is confirmed,notification
+91,Scheduled fire alarm test tomorrow,notification
+92,Could you review the API documentation?,business
+93,Your order was delivered,transactional
+94,Reminder: scholarship information webinar,notification
+95,Thank you for attending the workshop,notification
+96,Purchase order approved,transactional
+97,Road repairs scheduled near the main entrance,notification
+98,Travel reimbursement has been processed,transactional
+99,Confirmation of laboratory equipment booking,educational

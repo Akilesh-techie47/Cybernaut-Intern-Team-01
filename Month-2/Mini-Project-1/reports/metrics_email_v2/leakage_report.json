@@ -1,0 +1,9 @@
+{
+  "n_pool": 7101,
+  "n_test_refs": 300,
+  "near_threshold": 0.9,
+  "exact_hits": [],
+  "near_hits": [],
+  "flagged_pool_idx": [],
+  "n_excluded": 0
+}

@@ -1,0 +1,20 @@
+name: phishshift
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.13
+  - numpy=2.3
+  - pandas=3.0
+  - scikit-learn=1.9
+  - joblib=1.4
+  - streamlit=1.65
+  - pypdf=6.16  # For PDF report generation
+
+  # For development/testing
+  - pytest=9.1  # For unit and integration tests
+
+  # For reproducibility
+  - pip

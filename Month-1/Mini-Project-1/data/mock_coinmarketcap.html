@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CoinMarketCap - Dynamic Scrape Target (Local Copy)</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #0d1421; color: #fff; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; background: #171e2e; margin-top: 20px; }
+        th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #222c3d; }
+        th { background: #1e2738; color: #a1a7bb; font-size: 12px; text-transform: uppercase; }
+        .coin-item-name { font-weight: bold; margin: 0; display: inline; font-size: 14px; color: #ffffff; }
+        .coin-item-symbol { color: #858eaf; font-size: 12px; margin: 0 0 0 6px; display: inline; }
+        .color-up { color: #16c784; font-weight: bold; }
+        .color-down { color: #ea3943; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h2>Top 10 Cryptocurrencies by Market Capitalization</h2>
+    <table class="cmc-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>24h %</th>
+                <th>Market Cap</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        <tr>
+            <td>1</td>
+            <td>
+                <p class="coin-item-name">Bitcoin</p>
+                <p class="coin-item-symbol">BTC</p>
+            </td>
+            <td>$77,263.00</td>
+            <td class="color-up">+0.66%</td>
+            <td>$1,551,667,789,879</td>
+        </tr>
+        
+        <tr>
+            <td>2</td>
+            <td>
+                <p class="coin-item-name">Ethereum</p>
+                <p class="coin-item-symbol">ETH</p>
+            </td>
+            <td>$2,512.60</td>
+            <td class="color-up">+2.72%</td>
+            <td>$306,660,848,491</td>
+        </tr>
+        
+        <tr>
+            <td>3</td>
+            <td>
+                <p class="coin-item-name">Tether</p>
+                <p class="coin-item-symbol">USDT</p>
+            </td>
+            <td>$0.9998</td>
+            <td class="color-up">+0.00%</td>
+            <td>$183,425,595,554</td>
+        </tr>
+        
+        <tr>
+            <td>4</td>
+            <td>
+                <p class="coin-item-name">BNB</p>
+                <p class="coin-item-symbol">BNB</p>
+            </td>
+            <td>$726.24</td>
+            <td class="color-up">+2.06%</td>
+            <td>$96,707,085,102</td>
+        </tr>
+        
+        <tr>
+            <td>5</td>
+            <td>
+                <p class="coin-item-name">XRP</p>
+                <p class="coin-item-symbol">XRP</p>
+            </td>
+            <td>$1.35</td>
+            <td class="color-up">+0.99%</td>
+            <td>$85,193,673,808</td>
+        </tr>
+        
+        <tr>
+            <td>6</td>
+            <td>
+                <p class="coin-item-name">USDC</p>
+                <p class="coin-item-symbol">USDC</p>
+            </td>
+            <td>$0.9999</td>
+            <td class="color-down">-0.01%</td>
+            <td>$74,327,591,092</td>
+        </tr>
+        
+        <tr>
+            <td>7</td>
+            <td>
+                <p class="coin-item-name">Solana</p>
+                <p class="coin-item-symbol">SOL</p>
+            </td>
+            <td>$102.23</td>
+            <td class="color-up">+2.96%</td>
+            <td>$59,982,786,249</td>
+        </tr>
+        
+        <tr>
+            <td>8</td>
+            <td>
+                <p class="coin-item-name">TRON</p>
+                <p class="coin-item-symbol">TRX</p>
+            </td>
+            <td>$0.3385</td>
+            <td class="color-down">-0.49%</td>
+            <td>$32,140,128,578</td>
+        </tr>
+        
+        <tr>
+            <td>9</td>
+            <td>
+                <p class="coin-item-name">Figure Heloc</p>
+                <p class="coin-item-symbol">FIGR_HELOC</p>
+            </td>
+            <td>$1.03</td>
+            <td class="color-down">-0.33%</td>
+            <td>$23,222,685,417</td>
+        </tr>
+        
+        <tr>
+            <td>10</td>
+            <td>
+                <p class="coin-item-name">Zcash</p>
+                <p class="coin-item-symbol">ZEC</p>
+            </td>
+            <td>$1,160.04</td>
+            <td class="color-up">+6.54%</td>
+            <td>$19,638,755,811</td>
+        </tr>
+        
+        </tbody>
+    </table>
+</body>
+</html>

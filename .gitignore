@@ -1,0 +1,33 @@
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Python virtual environments
+venv/
+.venv/
+**/venv/
+**/.venv/
+
+# Python cache and test artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE and operating system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+# Temporary IMDb scraper debugging artifacts
+Month-1/Mini-Project-2/debug_page.html
+Month-1/Mini-Project-2/debug_row.html
+Month-1/Mini-Project-2/debug_screenshot.png
+# Experimental email spam classifier models
+Month-2/Mini-Project-1/models_staging/
+Month-2/Mini-Project-1/models_staging_v2/
+# Experimental email spam classifier models
+Month-2/Mini-Project-1/models_staging/
+Month-2/Mini-Project-1/models_staging_v2/

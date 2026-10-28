@@ -1,0 +1,41 @@
+{
+  "pool_csv": "data\\raw\\email_train_v2.csv",
+  "inputs": [
+    {
+      "file": "data\\raw\\email_spam_ham.csv",
+      "source": "spamassassin",
+      "encoding": "utf-8",
+      "total_rows": 5922,
+      "extra_columns_dropped": [],
+      "empty_dropped": 0,
+      "exact_duplicates_dropped": 0,
+      "kept_rows": 5922,
+      "label_counts": {
+        "ham": 4111,
+        "spam": 1811
+      }
+    },
+    {
+      "file": "data\\raw\\synthetic_ham.csv",
+      "source": "synthetic",
+      "encoding": "utf-8",
+      "total_rows": 1179,
+      "extra_columns_dropped": [
+        "category"
+      ],
+      "empty_dropped": 0,
+      "exact_duplicates_dropped": 0,
+      "kept_rows": 1179,
+      "label_counts": {
+        "ham": 1179
+      }
+    }
+  ],
+  "cross_source_duplicates_removed": 0,
+  "pool_rows": 7101,
+  "by_source_label": {
+    "spamassassin/ham": 4111,
+    "spamassassin/spam": 1811,
+    "synthetic/ham": 1179
+  }
+}
