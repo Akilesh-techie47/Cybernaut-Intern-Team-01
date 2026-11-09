@@ -1,0 +1,48 @@
+# Environment variables - never commit
+.env
+
+# Streamlit sessions
+.streamlit/
+
+# Artifacts
+artifacts/
+models/*.joblib
+*.joblib
+*.parquet
+*.zip
+
+
+# Data
+data/
+
+# PyCache
+__pycache__/
+*.pyc
+*.pyo
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# Project specific
+*.log
+
+# Pytest cache
+.pytest_cache/
+
+# Temporary test execution outputs
+*output.txt
+test*.txt
+# Include only runtime files required by the FastAPI application
+!artifacts/
+artifacts/*
+!artifacts/models/
+artifacts/models/*
+!artifacts/models/logistic_regression_new.joblib
+!artifacts/models/preprocessor_compatible.joblib
+!artifacts/models/model_metadata.json
+
+!data/
+data/*
+!data/airports_reference.json
+!data/airlines_reference.json

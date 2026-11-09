@@ -1,0 +1,5 @@
+Year,Month,DayOfWeek,DayOfMonth,Origin,Dest,CRSDepTime,Depdelay,Depdel15,Reporting_Airline,Distance,CRSElapsedTime,Cancelled,Diverted
+2023,1,1,5,JFK,SIN,1015,5,1,AA,1400,120,0
+2023,1,1,5,JFK,BKK,1130,20,1,AA,1400,120,0
+2023,1,2,5,LAX,SFO,900,0,0,DL,2142,85,0
+2023,1,2,5,LAX,SFO,1500,10,0,DL,2142,85,0

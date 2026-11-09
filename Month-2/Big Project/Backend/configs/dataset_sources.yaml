@@ -1,0 +1,102 @@
+# Dataset sources configuration for AeroDelay AI
+# Primary dataset: US DOT BTS On-Time Performance (Reporting Carrier)
+# Source: https://transtats.bts.gov/
+# Actual column names from BTS CSV: Year, Quarter, Month, DayofMonth, DayOfWeek,
+# FlightDate, Reporting_Airline, Origin, Dest, CRSDepTime, DepDel15, etc.
+
+dataset_bts_on_time:
+  name: "BTS On-Time Performance - Reporting Carrier"
+  source_url: "https://transtats.bts.gov/DL_SelectFields.aspx?QO_fu146_anzr=&gnoyr_VQ=FGJ"
+  download_url: "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_{{year}}_{{month}}.zip"
+  # Field mapping from actual BTS CSV column names to our internal names:
+  # Year -> YEAR
+  # Month -> MONTH
+  # DayOfWeek -> DAY_OF_WEEK
+  # Origin -> ORIGIN
+  # Dest -> DEST
+  # CRSDepTime -> CRS_DEP_TIME
+  # DepDel15 -> DEP_DEL15 (target)
+  # Reporting_Airline -> OP_UNIQUE_CARRIER
+  # Distance -> DISTANCE
+  # CRSElapsedTime -> CRS_ELAPSED_TIME
+  # Cancelled -> CANCELLED
+  # CancellationCode -> CANCELLATION_CODE
+  # Diverted -> DIVERTED
+  fields_select: [
+    "Year",
+    "Month",
+    "DayOfWeek",
+    "Origin",
+    "Dest",
+    "CRSDepTime",
+    "DepDel15",
+    "Reporting_Airline",
+    "Distance",
+    "CRSElapsedTime",
+    "Cancelled",
+    "CancellationCode",
+    "Diverted",
+  ]
+  target_column: "DepDel15"
+  description: "US DOT Bureau of Transportation Statistics On-Time Performance data for reporting carriers, 1987-present. Downloaded via PREZIP zipped CSV from transtats.bts.gov."
+  license: "Public domain - US Government data. No official restriction on use, modification, or redistribution."
+  record_count_per_month: ~5000  # Approximate: ~5000+ flights per month
+  columns: {
+    "Year": "integer",
+    "Month": "integer",
+    "DayOfWeek": "integer",
+    "Origin": "string",
+    "Dest": "string",
+    "CRSDepTime": "integer",        # scheduled departure time (local hhmm)
+    "DepDel15": "integer",          # target: 1=departure delay >= 15 min, 0 otherwise
+    "Reporting_Airline": "string",  # carrier code (maps to OP_UNIQUE_CARRIER)
+    "Distance": "integer",          # distance between airports (miles)
+    "CRSElapsedTime": "integer",    # scheduled elapsed time (minutes)
+    "Cancelled": "integer",          # 1=flight cancelled
+    "CancellationCode": "string",    # reason for cancellation
+    "Diverted": "integer",           # 1=flight diverted
+    "DepTime": "integer",           # Actual Departure Time - LEAKAGE: post-departure
+    "DepDelay": "float",            # Actual Departure Delay - LEAKAGE: post-departure
+    "TaxiOut": "integer",           # Taxi-Out Duration - LEAKAGE: post-departure
+    "WheelsOff": "integer",         # Wheels Off Time - LEAKAGE: post-departure
+    "ArrTime": "integer",           # Actual Arrival Time - LEAKAGE: post-departure
+    "ArrDelay": "float",            # Actual Arrival Delay - LEAKAGE: post-departure
+    "ActualElapsedTime": "float",   # Actual Elapsed Time - LEAKAGE: post-departure
+  }
+  meaningful_predictors: [
+    "Reporting_Airline",     # carrier (pre-departure known)
+    "Origin",                # origin airport (pre-departure known)
+    "Dest",                  # destination airport (pre-departure known)
+    "DayOfWeek",             # day of week (pre-departure known)
+    "Month",                 # month (pre-departure known)
+    "CRSDepTime",            # scheduled departure time (pre-departure known)
+    "Distance",              # distance between airports (pre-departure known)
+    "CRSElapsedTime",        # scheduled elapsed time (pre-departure known)
+    "Cancelled",             # cancellation indicator (pre-departure known)
+    "CancellationCode",      # cancellation reason (pre-departure known)
+    "Diverted"               # diverted indicator (pre-departure known)
+  ]
+  # Post-departure columns NEVER to use as predictors (leakage risks)
+  leakage_columns: [
+    "DepTime",               # Actual Departure Time - post-departure information
+    "DepDelay",              # Actual Departure Delay - post-departure information
+    "TaxiOut",               # Taxi-Out Duration - post-departure information
+    "WheelsOff",             # Wheels Off Time - post-departure information
+    "ArrTime",               # Actual Arrival Time - post-departure information
+    "ArrDelay",              # Actual Arrival Delay - post-departure information
+    "ActualElapsedTime",     # Actual Elapsed Time - post-departure information
+  ]
+  # Pre-departure only: these are all available before the flight departs
+  pre_departure_only: [
+    "Reporting_Airline",
+    "Origin",
+    "Dest",
+    "DayOfWeek",
+    "Month",
+    "CRSDepTime",
+    "Distance",
+    "CRSElapsedTime",
+    "Cancelled",
+    "CancellationCode",
+    "Diverted",
+  ]

@@ -1,0 +1,56 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+/*
+ * AeroDelay AI - global styles
+ * Premium aviation visual identity: deep navy / midnight background,
+ * electric cyan accents, light text.
+ */
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background-color: var(--color-navy-950, #0f172a);
+}
+
+/* Home hero: radial glow behind the headline (v3 "bg-gradient-radial"
+   is not a built-in utility in Tailwind v4, so it is defined here). */
+.home-hero-bg {
+  background-image: radial-gradient(
+    ellipse 90% 70% at 50% -10%,
+    #1e293b 0%,
+    #131c31 45%,
+    #0f172a 100%
+  );
+}
+
+/* iOS/Android home-indicator clearance for the fixed bottom nav */
+.safe-area-pb {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Respect the OS reduced-motion preference globally */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Form control defaults for the dark theme */
+select option {
+  background-color: #131c31;
+  color: #f1f5f9;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.7);
+  cursor: pointer;
+}

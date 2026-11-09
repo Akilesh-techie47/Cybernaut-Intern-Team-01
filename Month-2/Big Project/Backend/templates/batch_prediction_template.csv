@@ -1,0 +1,4 @@
+flight_number,origin,destination,date
+AA1234,JFK,LAX,2022-12-15
+DL456,SFO,SEA,2022-12-16
+UA789,ORD,JFK,2022-12-17

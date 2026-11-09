@@ -1,0 +1,273 @@
+# Dataset candidates for AeroDelay AI - departure delay >= 15 min prediction
+# Ordered by recommendation; select the BTS dataset as the training source.
+
+bts_on_time:
+  name: "BTS On-Time Performance - Reporting Carrier"
+  source_url: "https://transtats.bts.gov/"
+  download_url: "https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_{{year}}_{{month}}.zip"
+  license: "Public domain - US Government data. No official restriction on use, modification, or redistribution."
+  download_method: "direct_zip"
+  file_format: "zipped_csv"
+  date_coverage: "1987-present (monthly records)"
+  record_count_per_month: 5000  # Approximate: ~5000+ flights per month
+  target_column: "DepDel15"
+  target_definition: "1 = departure delay >= 15 minutes, 0 otherwise"
+  target_available_directly: True
+  key_columns:
+    - Year
+    - Month
+    - DayOfWeek
+    - Origin
+    - Dest
+    - CRSDepTime
+    - DepDel15
+    - Reporting_Airline
+    - Distance
+    - CRSElapsedTime
+    - Cancelled
+    - Diverted
+    - CancellationCode
+  leakage_columns:
+    - DepTime
+    - DepDelay
+    - TaxiOut
+    - WheelsOff
+    - ArrTime
+    - ArrDelay
+    - ActualElapsedTime
+  pre_departure_predictors:
+    - Reporting_Airline
+    - Origin
+    - Dest
+    - Month
+    - Distance
+    - Cancelled
+    - Diverted
+    - DayOfWeek
+    - CRSDepTime
+    - CRSElapsedTime
+  meaningful_predictors_count: 7
+  usable_records_minimum: 500
+  class_balance_expected: "~73% on-time, ~27% delayed (per month)"
+  download_notes: |
+    Download from https://transtats.bts.gov/DL_SelectFields.aspx?QO_fu146_anzr=&gnoyr_VQ=FGJ
+    or via PREZIP URLs: https://transtats.bts.gov/PREZIP/On_Time_Reporting_Carrier_On_Time_Performance_1987_present_{{year}}_{{month}}.zip
+    One CSV per month; extract and combine.
+  license_notes: "US Government data - public domain. No restrictions on use, modification, or redistribution."
+
+kaggle_us_2023_2024:
+  name: "US Flight Delay Dataset 2023-2024"
+  source_url: "https://www.kaggle.com/datasets/algorithmicdeer/us-flight-delay-dataset-2023-2024"
+  download_url: "https://www.kaggle.com/datasets/algorithmicdeer/us-flight-delay-dataset-2023-2024/file"
+  license: "Unknown (not explicitly listed on data card)"
+  download_method: "kaggle_api"
+  file_format: "csv"
+  date_coverage: "2023-2024"
+  record_count: 7_000_000  # Approximate from data card
+  target_column: "unknown"
+  target_definition: "Not immediately obvious; requires column inspection"
+  target_available_directly: False
+  key_columns:
+    - dep_delay
+    - arr_delay
+    - cancelled
+    - diverted
+    - carrier_delay
+    - weather_delay
+    - nas_delay
+    - security_delay
+    - late_aircraft_delay
+  leakage_columns:
+    - dep_delay
+    - arr_delay
+    - taxi_out
+    - wheels_off
+    - actual_elapsed_time
+  pre_departure_predictors:
+    - op_unique_carrier
+    - origin
+    - dest
+    - day_of_week
+    - month
+    - crs_dep_time
+    - distance
+    - cr_elapsed_time
+    - cancelled
+    - diverted
+  meaningful_predictors_count: 10
+  usable_records_minimum: 500
+  class_balance_expected: "unknown"
+  download_notes: "Kaggle API required: `kaggle datasets download algorithmicdeer/us-flight-delay-dataset-2023-2024`"
+  license_notes: "License not clearly stated; verify before use. Not confirmed as public domain."
+
+huggingface_dot:
+  name: "DOT Airline On-Time Performance 2018-2024"
+  source_url: "https://huggingface.co/datasets/claritystorm/dot-airline-ontime"
+  download_url: "https://huggingface.co/datasets/claritystorm/dot-airline-ontime/resolve/main/"
+  license: "Public domain (US federal data); full snapshot $99 one-time"
+  download_method: "huggingface_datasets_library"
+  file_format: "parquet (full) / csv (sample)"
+  date_coverage: "2018-2024"
+  record_count_public_sample: 1_000
+  record_count_full: 45_968_068
+  target_column: "DepDel15"
+  target_definition: "1 = departure delay >= 15 minutes, 0 otherwise (column present)"
+  target_available_directly: True
+  key_columns:
+    - DepDel15
+    - Cancelled
+    - Diverted
+    - DepDelay
+    - ArrDelay
+    - Reporting_Airline
+    - Origin
+    - Dest
+    - Month
+    - Distance
+    - CRSDepTime
+    - CRSElapsedTime
+  leakage_columns:
+    - DepTime
+    - DepDelay
+    - TaxiOut
+    - WheelsOff
+    - ArrTime
+    - ArrDelay
+    - ActualElapsedTime
+  pre_departure_predictors:
+    - Reporting_Airline
+    - Origin
+    - Dest
+    - Month
+    - Distance
+    - Cancelled
+    - Diverted
+    - DayOfWeek
+    - CRSDepTime
+    - CRSElapsedTime
+  meaningful_predictors_count: 100+
+  usable_records_minimum: 500
+  class_balance_expected: "unknown (public sample not representative)"
+  download_notes: |
+    Public sample: 1,000 rows (deterministic, not statistically representative).
+    Full dataset: $99 one-time payment for deterministic 12-row-per-month sample.
+    Install: `pip install datasets` then `datasets.load_dataset("claritystorm/dot-airline-ontime")`
+  license_notes: "Public domain data; full package requires one-time $99 payment for non-sample access."
+
+kaggle_2024_cc0:
+  name: "Flight Delay Dataset 2024 (CC0)"
+  source_url: "https://www.kaggle.com/datasets/hrishitpatil/flight-data-2024"
+  download_url: "https://www.kaggle.com/datasets/hrishitpatil/flight-data-2024/file"
+  license: "CC0: Public Domain"
+  download_method: "kaggle_api"
+  file_format: "csv"
+  date_coverage: "2024 (full year)"
+  record_count: 7_000_000  # ~7M rows
+  target_column: "dep_delay15_or_derive"
+  target_definition: "Derive from dep_delay >= 15 -> 1, else 0"
+  target_available_directly: False
+  key_columns:
+    - year
+    - month
+    - day_of_month
+    - day_of_week
+    - fl_date
+    - op_unique_carrier
+    - origin
+    - dest
+    - crs_dep_time
+    - dep_time
+    - dep_delay
+    - taxi_out
+    - wheels_off
+    - wheels_on
+    - taxi_in
+    - crs_arr_time
+    - arr_time
+    - arr_delay
+    - cancelled
+    - diverted
+    - crs_elapsed_time
+    - actual_elapsed_time
+    - air_time
+    - distance
+    - carrier_delay
+    - weather_delay
+    - nas_delay
+    - security_delay
+    - late_aircraft_delay
+  leakage_columns:
+    - dep_time
+    - dep_delay
+    - taxi_out
+    - wheels_off
+    - actual_elapsed_time
+    - arr_time
+    - arr_delay
+  pre_departure_predictors:
+    - op_unique_carrier
+    - origin
+    - dest
+    - day_of_week
+    - month
+    - crs_dep_time
+    - crs_elapsed_time
+    - distance
+    - cancelled
+    - diverted
+  meaningful_predictors_count: 10
+  usable_records_minimum: 500
+  class_balance_expected: "unknown"
+  download_notes: "Kaggle API required: `kaggle datasets download hrishitpatil/flight-data-2024`"
+  license_notes: "CC0: Public Domain - no restrictions on use, modification, or redistribution."
+
+data_gov_aviation:
+  name: "Airline On-Time Performance (Data.gov)"
+  source_url: "https://data.transportation.gov/Aviation/Airline-On-Time-Performance-and-Causes-of-Flight-D/r52d-vs5d"
+  download_url: "https://data.transportation.gov/Aviation/Airline-On-Time-Performance-and-Causes-of-Flight-D/r52d-vs5d"
+  license: "US Government data - public domain"
+  download_method: "socrata_api"
+  file_format: "csv (API export)"
+  date_coverage: "1987-present"
+  record_count: "same as BTS"
+  target_column: "DepDel15"
+  target_definition: "1 = departure delay >= 15 minutes, 0 otherwise (same as BTS)"
+  target_available_directly: True
+  key_columns:
+    - Year
+    - Month
+    - DayOfWeek
+    - Origin
+    - Dest
+    - CRSDepTime
+    - DepDel15
+    - Reporting_Airline
+    - Distance
+    - CRSElapsedTime
+    - Cancelled
+    - Diverted
+  leakage_columns:
+    - DepTime
+    - DepDelay
+    - TaxiOut
+    - WheelsOff
+    - ArrTime
+    - ArrDelay
+    - ActualElapsedTime
+  pre_departure_predictors:
+    - Reporting_Airline
+    - Origin
+    - Dest
+    - Month
+    - Distance
+    - CRSDepTime
+    - CRSElapsedTime
+    - Cancelled
+    - Diverted
+  meaningful_predictors_count: 7
+  usable_records_minimum: 500
+  class_balance_expected: "same as BTS"
+  download_notes: "Socrata Open Data API; CSV exports available via portal. Same data as BTS PREZIP downloads."
+  license_notes: "US Government data - public domain."
+
+_select_training_dataset: "bts_on_time"
