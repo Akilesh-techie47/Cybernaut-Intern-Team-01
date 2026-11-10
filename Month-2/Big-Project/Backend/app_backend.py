@@ -57,6 +57,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://aerodelay-ai.vercel.app",
 ]
 
+CORS_ALLOWED_ORIGIN_REGEX = r"^https://[a-zA-Z0-9-]+\.vercel\.app$"
+
 CORS_ALLOWED_METHODS = [
     "GET",
     "POST",
@@ -1402,9 +1404,8 @@ async def api_root() -> Dict[str, str]:
 app.add_middleware(
     CORSMiddleware,
     allow_origins=CORS_ALLOWED_ORIGINS,
+    allow_origin_regex=CORS_ALLOWED_ORIGIN_REGEX,
     allow_credentials=True,
-    allow_methods=CORS_ALLOWED_METHODS,
-    allow_headers=CORS_ALLOWED_HEADERS,
-    # Let the browser read the filename on batch CSV downloads.
-    expose_headers=["Content-Disposition"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
